@@ -1,10 +1,10 @@
-package ua.knu.be_green;
+package ua.knu.be_green.tests;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BeGreenApplicationTests {
+class BeGreenSpringBootApplicationTests {
 
     @Test
     void contextLoads() {
