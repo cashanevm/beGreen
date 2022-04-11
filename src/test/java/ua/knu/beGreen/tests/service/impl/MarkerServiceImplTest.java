@@ -19,6 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -68,12 +69,12 @@ class MarkerServiceImplTest {
 
         Optional<MarkerModel> actualOptional = markerService.getMarkerById(MARKER_ID);
 
-        assertTrue(actualOptional.isEmpty());
+        assertFalse(actualOptional.isPresent());
     }
 
     @Test
     public void whenGetEmptyListThenSuccess() {
-        when(markerRepository.findAll()).thenReturn(List.of());
+        when(markerRepository.findAll()).thenReturn(new ArrayList<>());
 
         List<MarkerModel> actualList = markerService.getAllMarkers();
 

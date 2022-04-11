@@ -6,6 +6,7 @@ import ua.knu.beGreen.web.controller.rest.MarkerController;
 import ua.knu.beGreen.web.dto.request.MarkerRequestDto;
 import ua.knu.beGreen.web.dto.response.MarkerResponseDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,7 +79,7 @@ public class MarkerControllerTest {
 
     @Test
     void whenGetAllMarkersThenSuccess() throws Exception {
-        when(markerService.getAllMarkers()).thenReturn(List.of());
+        when(markerService.getAllMarkers()).thenReturn(new ArrayList<>());
 
         mockMvc.perform(get(GET_ALL_MARKERS_PATH))
                 .andExpect(status().isOk());
