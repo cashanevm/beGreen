@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" th:href="@{/images/app-icon.png}" type="image/x-icon">
     <meta charset="UTF-8">
     <title>add new marker</title>
 </head>
 <body>
-    <h1>Form</h1>
-
-    <form action="#" th:action="@{/app/map/marker/new}" th:object="${marker_request_dto}" method="post">
-        <p th:if="${#fields.hasErrors('name')}">Name Error</p>
-        <p>name: <input type="text"name="name" th:field="*{name}" /></p>
-        <input type="hidden" name="lat" th:value="${param.lat}" />
-        <input type="hidden" name="lng" th:value="${param.lng}" />
-        <p><input type="submit" value="Submit" /></p>
-    </form>
+<h1>Form</h1>
+<form action="#" th:action="@{/app/map/marker/new}" th:object="${marker_request_dto}" method="post">
+    <p th:if="${#fields.hasErrors('name')}">Name Error</p>
+    <p>name: <input type="text" name="name" th:field="*{name}"/></p>
+    <input type="hidden" name="lat" th:value="${param.lat}"/>
+    <input type="hidden" name="lng" th:value="${param.lng}"/>
+    <p><input type="submit" value="Submit"/></p>
+</form>
 </body>
 </html>
