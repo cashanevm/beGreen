@@ -54,7 +54,6 @@ public class UserServiceImpl implements UserDetailsService {
             return false;
         }
         userModel.setActive(true);
-        userModel.setRoles(Collections.singleton(Role.USER));
         userModel.setActivationCode(UUID.randomUUID().toString());
         userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
         this.saveUser(userModel);

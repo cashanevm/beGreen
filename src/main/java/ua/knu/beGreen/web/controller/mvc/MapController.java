@@ -35,6 +35,11 @@ public class MapController {
         return "map/choose-marker";
     }
 
+    @GetMapping("/marker/show")
+    public String showMarker() {
+        return "map/show-markers";
+    }
+
     /**
      * Show add new marker form.
      *

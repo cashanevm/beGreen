@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" th:href="@{/images/app-icon.png}" type="image/x-icon">
+    <title>All markers</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/show-markers.js}"></script>
+</head>
+<body>
+<h1 id="loading"></h1>
+<form th:action="@{/app/map/marker/new}" id="set-marker">
+    <input type="hidden" id="lat" name="lat" value="" required/>
+    <input type="hidden" id="lng" name="lng" value="" required/>
+</form>
+<button id="show-me">show me</button>
+<h1 id="name"></h1>
+<p id="error" style="color:red;
+                            font-size: 20px;
+                            font-weight: bold;"></p>
+<div id="map"></div>
+<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3tUAeBKI0-XM6vqSH44totAm8WTNRqnc&callback=initMap&v=weekly"
+        async
+></script>
+</body>
+</html>

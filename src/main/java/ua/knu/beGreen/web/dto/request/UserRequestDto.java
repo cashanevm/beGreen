@@ -22,4 +22,6 @@ public class UserRequestDto {
     @Email(message = "Field \"Email\" is incorrect")
     @NotBlank(message = "Field \"Email\" is required")
     private String email;
+
+    private String role;
 }

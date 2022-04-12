@@ -1,11 +1,13 @@
 package ua.knu.beGreen.web.controller.mvc;
 
+import ua.knu.beGreen.persistence.entity.Role;
 import ua.knu.beGreen.service.api.MailingService;
 import ua.knu.beGreen.service.model.UserModel;
 import ua.knu.beGreen.service.impl.UserServiceImpl;
 import ua.knu.beGreen.web.dto.request.UserRequestDto;
 import ua.knu.beGreen.web.mapper.WebLayerMapper;
 
+import java.util.Collections;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,8 +51,9 @@ public class AuthController {
             BindingResult bindingResult,
             Model model,
             HttpServletRequest request) {
-
         UserModel userModel = WebLayerMapper.I.toUserModel(userRequestDto);
+        userModel.setRoles(Collections.singleton(Role.valueOf(userRequestDto.getRole())));
+
 
         if (userModel.getPassword() != null && !userModel.getPassword().equals(password2)) {
             model.addAttribute("passwordCompError", "Passwords are different!");

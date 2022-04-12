@@ -36,14 +36,10 @@ import lombok.NoArgsConstructor;
 public class UserModel implements UserDetails {
     private String id;
 
-    @NotBlank(message = "it is empty")
     private String username;
 
-    @NotBlank(message = "it is empty")
     private String password;
 
-    @Email(message = "is not correct")
-    @NotBlank(message = "it is empty")
     private String email;
 
     private String activationCode;
