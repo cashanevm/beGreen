@@ -5,8 +5,7 @@
     <title>All markers</title>
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script th:src="@{/js/index.js}"></script>
-    <script th:src="@{/js/show-markers.js}"></script>
+
 </head>
 <body>
 <h1 id="loading"></h1>
@@ -20,10 +19,12 @@
                             font-size: 20px;
                             font-weight: bold;"></p>
 <div id="map"></div>
+<script th:src="@{/js/show-markers.js}"></script>
+<script th:src="@{/js/index.js}"></script>
 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3tUAeBKI0-XM6vqSH44totAm8WTNRqnc&callback=initMap&v=weekly"
-        async
+        async defer
 ></script>
 </body>
 </html>

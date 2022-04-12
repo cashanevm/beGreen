@@ -8,7 +8,7 @@ let selected_marker_position;
 let ctx = window.location.origin + '/be-green/a/j/rest';
 function initMap() {
     let loading_message = document.getElementById("loading");
-    const spinner = document.getElementById('spinner');
+    let spinner = document.getElementById('spinner');
     loading_message.textContent = "loading your location...";
     spinner.style.display = 'block';
 
