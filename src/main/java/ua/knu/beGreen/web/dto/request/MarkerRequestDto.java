@@ -16,4 +16,6 @@ public class MarkerRequestDto {
     private String name;
     private String lat;
     private String lng;
+    private String address;
+    private String description;
 }

@@ -1,30 +1,85 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
     <link rel="icon" th:href="@{/images/app-icon.png}" type="image/x-icon">
-    <title>All markers</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/login-back.css}">
+    <title>My containers</title>
 </head>
+
 <body>
-<h1 id="loading"></h1>
-<form th:action="@{/app/map/marker/new}" id="set-marker">
-    <input type="hidden" id="lat" name="lat" value="" required/>
-    <input type="hidden" id="lng" name="lng" value="" required/>
-</form>
-<button id="show-me">show me</button>
-<h1 id="name"></h1>
-<p id="error" style="color:red;
-                            font-size: 20px;
-                            font-weight: bold;"></p>
-<div id="map"></div>
-<script th:src="@{/js/show-markers.js}"></script>
-<script th:src="@{/js/index.js}"></script>
-<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3tUAeBKI0-XM6vqSH44totAm8WTNRqnc&callback=initMap&v=weekly"
-        async defer
-></script>
+<section class="background-radial-gradient overflow-hidden">
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div class="row gx-lg-5 align-items-center mb-5">
+            <div class="col-lg-12 mb-5 mb-lg-0 position-relative">
+                <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+                <div class="card bg-glass">
+                    <div class="card-body px-4 py-5 px-md-5">
+                        <div class="my-3 p-3 bg-glass rounded box-shadow">
+                            <form th:action="@{/app/home}" class="d-flex flex-row">
+                                <button type="submit" class="btn  btn-outline-success to-spin">Back</button>
+                            </form>
+
+                            <h6 class="border-bottom border-gray pb-2 mb-0">My containers</h6>
+
+                            <div th:each="container : ${containers}">
+                                <div class="media text-muted pt-3">
+                                    <img  th:src="@{/images/app-icon.png}" alt="" class="mr-2 rounded">
+                                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                            <strong class="text-gray-dark"  th:text="${container.name}" > Full Name </strong>
+                                        </div>
+                                        <span class="d-block d-flex flex-row"> <span th:text="${container.address}" >Container name</span></span>
+                                        <div class="d-flex justify-content-end">
+                                            <form th:action="@{/app/map/marker/show}">
+                                                <input type="hidden" name="id" th:value="${container.id}">
+                                                <button type="submit" class="btn btn-success to-spin">More info</button>
+                                            </form>
+
+                                            <form th:if ="${container.isBeSeen}" th:action="@{/app/map/container/show/disable}" method="post">
+                                                <input type="hidden" name="id" th:value="${container.id}">
+                                                <input type="hidden" name="name" th:value="${container.name}">
+                                                <button type="submit" class="btn btn-outline-danger to-spin">Disable
+                                                </button>
+                                            </form>
+
+                                            <form th:if ="${!container.isBeSeen}" th:action="@{/app/map/container/show/enable} " method="post">
+                                                <input type="hidden" name="id" th:value="${container.id}">
+                                                <input type="hidden" name="name" th:value="${container.name}">
+                                                <button type="submit" class="btn btn-outline-success to-spin">Enable
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <small class="d-block text-right mt-3">
+                                <form th:action="@{/app/map/marker/choice}">
+                                    <button type="submit" class="btn btn-success to-spin">Add new one</button>
+                                </form>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{/js/button-spin.js}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

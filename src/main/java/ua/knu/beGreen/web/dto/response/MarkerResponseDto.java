@@ -14,4 +14,7 @@ public class MarkerResponseDto {
     private String name;
     private String lat;
     private String lng;
+    private String address;
+    private String description;
+    private String containerId;
 }

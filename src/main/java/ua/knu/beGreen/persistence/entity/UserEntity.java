@@ -1,6 +1,5 @@
 package ua.knu.beGreen.persistence.entity;
 
-import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -13,23 +12,24 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "usr")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"containers"})
+@ToString(exclude = {"containers"})
 public class UserEntity {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -46,6 +46,9 @@ public class UserEntity {
     private String activationCode;
 
     private boolean active;
+
+    @OneToMany(mappedBy="user")
+    private Set<ContainerEntity> containers;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name ="user_role", joinColumns = @JoinColumn(name = "user_id"))

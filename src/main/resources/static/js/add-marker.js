@@ -1,6 +1,7 @@
 let map;
 let new_marker;
 let create_button;
+let geocoder;
 
 let error_message = document.getElementById("error");
 let start_map_position = { lat: 41.40046221020247, lng: 18.510486044050406 };
@@ -17,13 +18,32 @@ function initMap() {
         zoom: 3,
     });
 
+    geocoder = new google.maps.Geocoder();
+
     addShowMeButton();
 
     createNewMarker();
 
-    showMarkersByUrl('/map/marker/all');
+    showMarkersByUrl('/map/marker/all/visible');
 
     showMe();
+
+}
+
+function geocodeLatLng() {
+    let latLng = selected_marker_position
+
+
+    geocoder
+        .geocode({location: latLng})
+        .then((response) => {
+            if (response.results[0]) {
+                document.getElementById('address').value = response.results[0].formatted_address;
+            } else {
+                console.log("No results found");
+            }
+        })
+        .catch((e) => console.log("Geocoder failed due to: " + e));
 
 }
 
@@ -35,6 +55,7 @@ function setLatLng() {
 
     document.getElementById('lat').value = latLng.at(0);
     document.getElementById('lng').value = latLng.at(1);
+    geocodeLatLng();
 }
 
 function createNewMarker() {
@@ -90,23 +111,32 @@ async function getById(id) {
 
 
     let loading_message = document.getElementById("loading");
-    loading_message.textContent = "loading marker..."
-    let url = ctx + '/map/marker/' + id;
+    loading_message.textContent = "loading container..."
+    let url = ctx + '/map/container/' + id;
     let nameO = '';
+    let ownerName;
+    let address;
+    let des;
+
 
     try {
         const response = await fetch(url);
         const data = await response.json();
         nameO = data.name
+        ownerName = data.ownerName;
+        if (ownerName == null) {
+            ownerName = "-";
+        }
+        address = data.address;
+        des = data.description;
     } catch (error) {
         console.log(error)
     }
     box.innerHTML += ' <div class="row featurette">\n' +
         '            <div class="col-md-7 ' + order + ' " >\n' +
-        '                <h2 class="featurette-heading">' + nameO + '</h2>  ' +
-        '                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis\n' +
-        '                    euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus,\n' +
-        '                    tellus ac cursus commodo.</p>\n' +
+        '                <h2 class="featurette-heading">' + nameO + ' <span class="font-italic"> ' + ownerName + '</span></h2>  ' +
+        ' <h3 class="featurette-heading">' + address + '</h3>  ' +
+        '                <p class="lead">' + des + '</p>\n' +
         '               <button type="submit" class="btn btn-success to-spin disabled">Make an order </button>\n' +
         '            </div>\n' +
         '            <div class="col-md-5">\n' +
@@ -133,9 +163,11 @@ async function showMarkersByUrl(urlPath) {
 
         Array.from(data).forEach(
             function createMarker( markerEntity ) {
-                let position = new google.maps.LatLng(markerEntity.lat , markerEntity.lng);
+                let position = new google.maps.LatLng(markerEntity.lat, markerEntity.lng);
                 let title = markerEntity.name;
-                let markerId = markerEntity.id;
+                let containerId = markerEntity.containerId;
+                let address = markerEntity.address;
+                let des = markerEntity.description;
 
                 const marker = new google.maps.Marker({
                     position,
@@ -149,9 +181,9 @@ async function showMarkersByUrl(urlPath) {
                         content: "<div class=\"card\" style=\"width: 18rem;\">\n" +
                             "  <div class=\"card-body\">\n" +
                             "    <h5 class=\"card-title\">" + marker.getTitle() + "</h5>\n" +
-                            "    <h6 class=\"card-subtitle mb-2 text-muted\">Card subtitle</h6>\n" +
-                            "    <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>\n" +
-                            "<button class=\"btn btn-success to-spin\" onclick=\"getById('" + markerId + "')\">More info</button>" +
+                            "    <h6 class=\"card-subtitle mb-2 text-muted\">" + address + "</h6>\n" +
+                            "    <p class=\"card-text\">" + des + "</p>\n" +
+                            "<button class=\"btn btn-success to-spin\" onclick=\"getById('" + containerId + "')\">More info</button>" +
                             "  </div>\n" +
                             "</div>",
                     });

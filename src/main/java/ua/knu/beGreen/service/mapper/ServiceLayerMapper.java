@@ -1,7 +1,9 @@
 package ua.knu.beGreen.service.mapper;
 
+import ua.knu.beGreen.persistence.entity.ContainerEntity;
 import ua.knu.beGreen.persistence.entity.MarkerEntity;
 import ua.knu.beGreen.persistence.entity.UserEntity;
+import ua.knu.beGreen.service.model.ContainerModel;
 import ua.knu.beGreen.service.model.MarkerModel;
 import ua.knu.beGreen.service.model.UserModel;
 
@@ -24,6 +26,7 @@ public interface ServiceLayerMapper {
      * @param entity - MarkerEntity
      * @return MarkerModel
      */
+    @Mapping(target = "containerId", source = "container.id")
     MarkerModel toMarkerModel(MarkerEntity entity);
 
     /**
@@ -34,6 +37,7 @@ public interface ServiceLayerMapper {
      */
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
+    @Mapping(target = "container", ignore = true)
     MarkerEntity toMarkerEntity(MarkerModel model);
 
     /**
@@ -51,7 +55,26 @@ public interface ServiceLayerMapper {
      * @param model - UserModel
      * @return UserEntity
      */
+    @Mapping(target = "containers", ignore = true)
     UserEntity toUserEntity(UserModel model);
+
+    /**
+     * Convert ContainerModel to ContainerEntity.
+     *
+     * @param model - ContainerModel
+     * @return ContainerEntity
+     */
+    @Mapping(target = "createdOn", ignore = true)
+    @Mapping(target = "updatedOn", ignore = true)
+    ContainerEntity toContainerEntity(ContainerModel model);
+
+    /**
+     * Convert ContainerEntity to ContainerModel.
+     *
+     * @param entity - ContainerModel
+     * @return ContainerEntity
+     */
+    ContainerModel toContainerModel(ContainerEntity entity);
 }
 
 // @Mapping(target = "target_field_name", source = "source_field_name")

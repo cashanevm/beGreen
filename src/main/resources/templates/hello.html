@@ -9,34 +9,14 @@
     <link rel="stylesheet" th:href="@{/css/login-back.css}">
     <title>Hello, world!</title>
 </head>
+
 <body>
-<header class="p-3 mb-3 border-bottom">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="https://getbootstrap.com/"
-               class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                <img th:src="@{/images/app-icon.png}" alt="mdo" width="32" height="32" class="rounded-circle"> </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 my-2 display-8 fw-bold ls-tight"
-                style="color: hsl(218, 81%, 75%)">
-                <li><h1 class="my-2 display-8 fw-bold ls-tight">
-                    <span>Save the future</span>
-                </h1></li>
-                <li><p class="nav-link px-2" th:text="${username}">...</p></li>
-                <li><p class="nav-link px-2" th:text="${roles}">...</p></li>
-            </ul>
-        </div>
-    </div>
-</header>
-
 <section class="background-radial-gradient overflow-hidden">
-
     <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
         <div class="row gx-lg-5 align-items-center mb-5">
             <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)"  th:text="${roles}">
                     Be Green <br/>
-
                 </h1>
                 <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
                     “Going green” is a popular buzz-phrase that can start to lose meaning the more it’s overused. And
@@ -56,38 +36,30 @@
                 <div class="card bg-glass">
                     <div class="card-body px-4 py-5 px-md-5">
                         <form th:action="@{${ui}}">
-
-                            <!-- Submit button -->
                             <button type="submit" class="btn btn-primary btn-block mb-4 btn-success to-spin">
                                 Open UI
                             </button>
-
                         </form>
-                        <form th:action="@{${back}}">
 
-                            <!-- Submit button -->
+                        <form th:action="@{${back}}">
                             <button type="submit" class="btn btn-primary btn-block mb-4 btn-success to-spin">
                                 Open Swagger
                             </button>
-
                         </form>
-                        <form th:action="@{/logout}" method="post">
 
-                            <!-- Submit button -->
+                        <form th:action="@{/logout}" method="post">
                             <button type="submit" class="btn btn-primary btn-block mb-4 btn-success to-spin">
                                 Logout
                             </button>
-
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </section>
-<script th:src="@{/js/button-spin.js}"></script>
 
+<script th:src="@{/js/button-spin.js}"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

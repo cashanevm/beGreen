@@ -42,12 +42,23 @@ public class MarkerController {
     /**
      * Get all markers.
      *
-     *
      * @return List of MarkerResponseDto
      */
     @GetMapping("/all")
     public ResponseEntity<List<MarkerResponseDto>> getAllMarkers() {
         return ResponseEntity.ok(markerService.getAllMarkers().stream()
+                .map(WebLayerMapper.I::toMarkerResponseDto)
+                .collect(Collectors.toList()));
+    }
+
+    /**
+     * Get all visible markers.
+     *
+     * @return List of MarkerResponseDto
+     */
+    @GetMapping("/all/visible")
+    public ResponseEntity<List<MarkerResponseDto>> getAllVisibleMarkers() {
+        return ResponseEntity.ok(markerService.getAllVisibleMarkers().stream()
                 .map(WebLayerMapper.I::toMarkerResponseDto)
                 .collect(Collectors.toList()));
     }

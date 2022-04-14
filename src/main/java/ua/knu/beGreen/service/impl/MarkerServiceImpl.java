@@ -1,8 +1,10 @@
 package ua.knu.beGreen.service.impl;
 
 import ua.knu.beGreen.persistence.repository.MarkerRepository;
+import ua.knu.beGreen.service.api.ContainerService;
 import ua.knu.beGreen.service.api.MarkerService;
 import ua.knu.beGreen.service.mapper.ServiceLayerMapper;
+import ua.knu.beGreen.service.model.ContainerModel;
 import ua.knu.beGreen.service.model.MarkerModel;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MarkerServiceImpl implements MarkerService {
     private final MarkerRepository markerRepository;
+    private final ContainerService containerService;
 
     @Override
     public Optional<MarkerModel> getMarkerById(String markerId) {
@@ -27,6 +30,12 @@ public class MarkerServiceImpl implements MarkerService {
     public List<MarkerModel> getAllMarkers() {
         return markerRepository.findAll().stream()
                 .map(ServiceLayerMapper.I::toMarkerModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MarkerModel> getAllVisibleMarkers() {
+        return containerService.getAllVisibleContainers().stream().map(ContainerModel::getMarker)
+                .collect(Collectors.toList());
     }
 
     @Override

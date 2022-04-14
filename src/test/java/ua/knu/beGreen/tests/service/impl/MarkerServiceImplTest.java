@@ -2,6 +2,7 @@ package ua.knu.beGreen.tests.service.impl;
 
 import ua.knu.beGreen.persistence.entity.MarkerEntity;
 import ua.knu.beGreen.persistence.repository.MarkerRepository;
+import ua.knu.beGreen.service.api.ContainerService;
 import ua.knu.beGreen.service.api.MarkerService;
 import ua.knu.beGreen.service.impl.MarkerServiceImpl;
 import ua.knu.beGreen.service.model.MarkerModel;
@@ -35,9 +36,12 @@ class MarkerServiceImplTest {
     @Mock
     private MarkerRepository markerRepository;
 
+    @Mock
+    private ContainerService containerService;
+
     @BeforeEach
     void setUp() {
-        markerService = new MarkerServiceImpl(markerRepository);
+        markerService = new MarkerServiceImpl(markerRepository, containerService);
     }
 
     @Test

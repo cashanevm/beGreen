@@ -13,11 +13,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 public class HelloController {
     @GetMapping("/")
     public String greeting(Model model, @Parameter(hidden = true) @AuthenticationPrincipal UserModel userModel) {
-        System.out.println(userModel);
-      ;
         model.addAttribute("username", userModel.getUsername());
         model.addAttribute("roles", userModel.getRoles().toString());
-        //model.addAttribute("ui", "/app/map/marker/choice");
         model.addAttribute("ui", "/app/home");
         model.addAttribute("back", "/swagger-ui/index.html?configUrl=/be-green/v3/api-docs/swagger-config#/");
         return "hello";

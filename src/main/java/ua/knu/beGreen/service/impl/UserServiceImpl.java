@@ -1,13 +1,13 @@
 package ua.knu.beGreen.service.impl;
 
 import ua.knu.beGreen.persistence.entity.Role;
+import ua.knu.beGreen.persistence.repository.UserRepository;
 import ua.knu.beGreen.service.api.MailingService;
 import ua.knu.beGreen.service.mapper.ServiceLayerMapper;
+import ua.knu.beGreen.service.model.ContainerModel;
 import ua.knu.beGreen.service.model.UserModel;
-import ua.knu.beGreen.persistence.repository.UserRepository;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -125,14 +125,19 @@ public class UserServiceImpl implements UserDetailsService {
         }
     }
 //need to remove
-    private void sendMessage(UserModel userModel) {
-        if (!StringUtils.isEmpty(userModel.getEmail())) {
-            String message = String.format(
-                    "Hello, %s! Welcome to Be Green. Please, visit next link: http://localhost:8080/be-green/app/auth/activate/%s",
-                    userModel.getUsername(),
-                    userModel.getActivationCode()
-            );
-            mailingServiceImpl.send(userModel.getEmail(), "Activation code", message);
-        }
+private void sendMessage(UserModel userModel) {
+    if (!StringUtils.isEmpty(userModel.getEmail())) {
+        String message = String.format(
+                "Hello, %s! Welcome to Be Green. Please, visit next link: http://localhost:8080/be-green/app/auth/activate/%s",
+                userModel.getUsername(),
+                userModel.getActivationCode()
+        );
+        mailingServiceImpl.send(userModel.getEmail(), "Activation code", message);
+    }
+}
+
+    public List<ContainerModel> getAllUserContainers(String userName) {
+        return userRepository.findByUsername(userName).get().getContainers().stream()
+                .map(ServiceLayerMapper.I::toContainerModel).collect(Collectors.toList());
     }
 }

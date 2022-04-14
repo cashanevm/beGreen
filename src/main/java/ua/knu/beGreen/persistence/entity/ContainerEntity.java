@@ -2,10 +2,13 @@ package ua.knu.beGreen.persistence.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,34 +24,38 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@Table(name = "map_marker")
+@Table(name = "container")
 @Entity
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"container"})
-@ToString(exclude = {"container"})
-public class MarkerEntity {
+@EqualsAndHashCode(exclude = {"marker", "user"})
+@ToString(exclude = {"marker", "user"})
+public class ContainerEntity {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @Column(name = "name", length = 128)
     private String name;
-
-    @Column(name = "lat")
-    private String lat;
-
-    @Column(name = "lng")
-    private String lng;
-
-    private String address;
 
     private String description;
 
-    @OneToOne(mappedBy = "marker")
-    private ContainerEntity container;
+    private Integer addedUsers;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserEntity user;
+
+    private Integer averageMark;
+
+    boolean isBeSeen;
+
+    private String address;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "marker_id", referencedColumnName = "id")
+    private MarkerEntity marker;
 
     @CreationTimestamp
     @Column(name = "created_on")
@@ -57,4 +64,8 @@ public class MarkerEntity {
     @UpdateTimestamp
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
+
+    // private-comments List<Comment>
+    // private-items List<Item>
+    // private-readjustments List<Readjustment>
 }

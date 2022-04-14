@@ -1,6 +1,5 @@
 package ua.knu.beGreen.service.api;
 
-
 import ua.knu.beGreen.service.model.MarkerModel;
 
 import java.util.List;
@@ -22,6 +21,8 @@ public interface MarkerService {
      * @return List of MarkerModel
      */
     List<MarkerModel> getAllMarkers();
+
+    List<MarkerModel> getAllVisibleMarkers();
 
     /**
      * Save marker.
