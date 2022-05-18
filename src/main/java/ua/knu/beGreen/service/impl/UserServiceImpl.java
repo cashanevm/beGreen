@@ -1,5 +1,12 @@
 package ua.knu.beGreen.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import ua.knu.beGreen.persistence.entity.Role;
 import ua.knu.beGreen.persistence.repository.UserRepository;
 import ua.knu.beGreen.service.api.MailingService;
@@ -14,15 +21,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -39,12 +37,13 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     public UserModel saveUser(UserModel model) {
-       return ServiceLayerMapper.I.toUserModel(userRepository.save(ServiceLayerMapper.I.toUserEntity(model)));
+        return ServiceLayerMapper.I.toUserModel(userRepository.save(ServiceLayerMapper.I.toUserEntity(model)));
     }
 
     public Optional<UserModel> findByUsername(String userName) {
         return userRepository.findByUsername(userName).map(ServiceLayerMapper.I::toUserModel);
     }
+
     public Optional<UserModel> findByActivationCode(String activationCode) {
         return userRepository.findByActivationCode(activationCode).map(ServiceLayerMapper.I::toUserModel);
     }
@@ -83,11 +82,9 @@ public class UserServiceImpl implements UserDetailsService {
         return userRepository.findAll().stream().map(ServiceLayerMapper.I::toUserModel).collect(Collectors.toList());
     }
 
-    public void saveUserj(UserModel userModel, String username, Map<String, String> form) {
+    public void saveUser(UserModel userModel, String username, Map<String, String> form) {
         userModel.setUsername(username);
-        Set<String> roles = Arrays.stream(Role.values())
-                .map(Role::name)
-                .collect(Collectors.toSet());
+        Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
 
         userModel.getRoles().clear();
 
@@ -103,8 +100,7 @@ public class UserServiceImpl implements UserDetailsService {
     public void updateProfile(UserModel userModel, String password, String email) {
         String userEmail = userModel.getEmail();
 
-        boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
-                (userEmail != null && !userEmail.equals(email));
+        boolean isEmailChanged = (email != null && !email.equals(userEmail)) || (userEmail != null && !userEmail.equals(email));
 
         if (isEmailChanged) {
             userModel.setEmail(email);
@@ -121,23 +117,11 @@ public class UserServiceImpl implements UserDetailsService {
         this.saveUser(userModel);
 
         if (isEmailChanged) {
-            sendMessage(userModel);
+            mailingServiceImpl.sendMessage(userModel,"http://localhost:8080");
         }
     }
-//need to remove
-private void sendMessage(UserModel userModel) {
-    if (!StringUtils.isEmpty(userModel.getEmail())) {
-        String message = String.format(
-                "Hello, %s! Welcome to Be Green. Please, visit next link: http://localhost:8080/be-green/app/auth/activate/%s",
-                userModel.getUsername(),
-                userModel.getActivationCode()
-        );
-        mailingServiceImpl.send(userModel.getEmail(), "Activation code", message);
-    }
-}
 
     public List<ContainerModel> getAllUserContainers(String userName) {
-        return userRepository.findByUsername(userName).get().getContainers().stream()
-                .map(ServiceLayerMapper.I::toContainerModel).collect(Collectors.toList());
+        return userRepository.findByUsername(userName).get().getContainers().stream().map(ServiceLayerMapper.I::toContainerModel).collect(Collectors.toList());
     }
 }
