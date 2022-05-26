@@ -125,6 +125,7 @@ public class UserServiceImpl implements UserDetailsService {
         }
     }
 //need to remove
+
 private void sendMessage(UserModel userModel) {
     if (!StringUtils.isEmpty(userModel.getEmail())) {
         String message = String.format(
