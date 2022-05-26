@@ -1,7 +1,7 @@
 package ua.knu.beGreen.web.controller.mvc;
 
 import ua.knu.beGreen.service.api.ContainerService;
-import ua.knu.beGreen.service.impl.UserServiceImpl;
+import ua.knu.beGreen.service.api.impl.UserServiceImpl;
 import ua.knu.beGreen.service.model.ContainerModel;
 import ua.knu.beGreen.service.model.MarkerModel;
 import ua.knu.beGreen.service.model.UserModel;

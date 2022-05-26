@@ -1,4 +1,4 @@
-package ua.knu.beGreen.service.impl;
+package ua.knu.beGreen.service.api.impl;
 
 import ua.knu.beGreen.service.api.MailingService;
 import ua.knu.beGreen.service.model.UserModel;

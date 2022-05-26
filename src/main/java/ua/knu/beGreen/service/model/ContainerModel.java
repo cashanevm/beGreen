@@ -1,5 +1,7 @@
 package ua.knu.beGreen.service.model;
 
+import javax.persistence.Column;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +21,11 @@ public class ContainerModel {
     boolean isBeSeen;
     private MarkerModel marker;
     private String address;
+    private Integer size;
+
+    private double pointKef;
+    private boolean isPoint;
+    private boolean isFull;
 
     // private-comments List<Comment>
     // private-items List<Item>

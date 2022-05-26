@@ -68,6 +68,19 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label for="inputEmail4">Size</label>
+
+                                <input th:classappend="${sizeError} ? 'is-invalid'"
+                                       th:attrappend="value=${container != null}?${container.getSize()}"
+                                       type="text" name="size" class="form-control" id="inputEmrail4" placeholder="Size">
+
+                                <div th:if="nameError" th:text="${sizeError}"
+                                     id="validationSrerverUsernameFeedback" class="invalid-feedback">
+                                    error
+                                </div>
+                            </div>
+
                             <input type="hidden" name="id" th:value="${container.id}"/>
 
                             <button type="submit" class="btn-lg btn-block btn btn-success to-spin mt3">Save</button>

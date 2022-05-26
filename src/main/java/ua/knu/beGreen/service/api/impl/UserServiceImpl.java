@@ -1,6 +1,8 @@
-package ua.knu.beGreen.service.impl;
+package ua.knu.beGreen.service.api.impl;
 
+import ua.knu.beGreen.persistence.entity.ContainerEntity;
 import ua.knu.beGreen.persistence.entity.Role;
+import ua.knu.beGreen.persistence.entity.UserEntity;
 import ua.knu.beGreen.persistence.repository.UserRepository;
 import ua.knu.beGreen.service.api.MailingService;
 import ua.knu.beGreen.service.mapper.ServiceLayerMapper;
@@ -8,12 +10,15 @@ import ua.knu.beGreen.service.model.ContainerModel;
 import ua.knu.beGreen.service.model.UserModel;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,6 +37,19 @@ public class UserServiceImpl implements UserDetailsService {
     private final MailingService mailingServiceImpl;
 
     private final PasswordEncoder passwordEncoder;
+
+    @PostConstruct
+    private void addTestUser() {
+        HashSet<Role> roles = new HashSet<>();
+        roles.add(Role.COMPANY);
+
+        HashSet<ContainerEntity> containerEntities = new HashSet<>();
+
+        userRepository.save(UserEntity.builder()
+                        .active(true).activationCode("f").containers(containerEntities)
+                .currency(0).id("id").email("email").password("1111").username("1111").roles(roles)
+                .build());
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

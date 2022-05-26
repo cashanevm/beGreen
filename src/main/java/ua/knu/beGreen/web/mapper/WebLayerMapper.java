@@ -52,6 +52,8 @@ public interface WebLayerMapper {
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "authorities", ignore = true)
+    @Mapping(target = "point", constant = "0")
+    @Mapping(target = "currency", constant = "0")
     UserModel toUserModel(UserRequestDto requestDto);
 
     /**
@@ -60,6 +62,9 @@ public interface WebLayerMapper {
      * @param requestDto - ContainerRequestDto
      * @return ContainerModel
      */
+    @Mapping(target = "pointKef", ignore = true)
+    @Mapping(target = "point", ignore = true)
+    @Mapping(target = "full", ignore = true)
     ContainerModel toContainerModel(ContainerRequestDto requestDto);
 
     /**

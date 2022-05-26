@@ -19,6 +19,10 @@ public class ContainerResponseDto {
     private String address;
     private String ownerName;
 
+    private double pointKef;
+    private boolean isPoint;
+    private boolean isFull;
+
     // private-comments List<Comment>
     // private-items List<Item>
     // private-readjustments List<Readjustment>

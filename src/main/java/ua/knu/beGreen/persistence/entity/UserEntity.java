@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "usr")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"containers"})
@@ -55,4 +57,7 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    private Integer point;
+
+    private Integer currency;
 }

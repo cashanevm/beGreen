@@ -21,6 +21,11 @@
         <!--        <a class="p-2 text-dark" href="/#">Support</a>-->
         <!--        <a class="p-2 text-dark" href="/#">Pricing</a>-->
     </nav>
+
+    <nav sec:authorize="hasAuthority('COMPANY')">
+        <a class="p-2 text-dark" th:href="@{/app/currency/add}"><span th:text="${userCurrency}"></span>$</a>
+    </nav>
+
     <form th:action="@{/logout}" method="post">
         <!-- Submit button -->
         <button type="submit" class="btn btn-outline-success to-spin">

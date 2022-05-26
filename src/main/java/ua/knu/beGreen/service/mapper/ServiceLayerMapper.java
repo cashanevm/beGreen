@@ -66,6 +66,10 @@ public interface ServiceLayerMapper {
      */
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
+
+    @Mapping(target = "pointKef", ignore = true)
+    @Mapping(target = "point", ignore = true)
+    @Mapping(target = "full", ignore = true)
     ContainerEntity toContainerEntity(ContainerModel model);
 
     /**
