@@ -41,17 +41,17 @@ public class UserServiceImpl implements UserDetailsService {
 
     @PostConstruct
     private void addTestUser() {
-        HashSet<Role> roles = new HashSet<>();
-        roles.add(Role.COMPANY);
-
-        HashSet<ContainerEntity> containerEntities = new HashSet<>();
-
-        userRepository.save(UserEntity.builder()
-                .active(true).activationCode("f").containers(containerEntities)
-                .currency(0).id("id").email("email")
-                .password(new BCryptPasswordEncoder(8).encode("1111"))
-                .username("1111").roles(roles)
-                .build());
+//        HashSet<Role> roles = new HashSet<>();
+//        roles.add(Role.COMPANY);
+//
+//        HashSet<ContainerEntity> containerEntities = new HashSet<>();
+//
+//        userRepository.save(UserEntity.builder()
+//                .active(true).activationCode("f").containers(containerEntities)
+//                .currency(0).id("id").email("email")
+//                .password(new BCryptPasswordEncoder(8).encode("1111"))
+//                .username("1111").roles(roles)
+//                .build());
     }
 
     @Override
