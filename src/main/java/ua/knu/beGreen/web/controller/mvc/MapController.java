@@ -149,6 +149,7 @@ public class MapController {
         container.setName(containerRequestDto.getName());
         container.setDescription(containerRequestDto.getDescription());
         container.setAddress(containerRequestDto.getAddress());
+        container.setSize(containerRequestDto.getSize());
 
         MarkerModel marker = container.getMarker();
 

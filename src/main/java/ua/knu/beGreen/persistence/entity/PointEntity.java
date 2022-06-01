@@ -9,12 +9,14 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "point")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class PointEntity {
@@ -26,7 +28,7 @@ public class PointEntity {
 
     private Integer kilogram;
 
-    private Integer userId;
+    private String userId;
 
-    private Integer containerId;
+    private String containerId;
 }

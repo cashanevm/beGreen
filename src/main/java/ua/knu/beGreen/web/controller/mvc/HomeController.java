@@ -19,6 +19,8 @@ public class HomeController {
     public String greeting(Model model, @Parameter(hidden = true) @AuthenticationPrincipal UserModel userModel) {
         model.addAttribute("username", userModel.getUsername());
         model.addAttribute("userCurrency", userModel.getCurrency() == null ? 0 : userModel.getCurrency());
+        model.addAttribute("userPoints", userModel.getPoint() == null ? 0 : userModel.getPoint());
+
         return "home";
     }
 }

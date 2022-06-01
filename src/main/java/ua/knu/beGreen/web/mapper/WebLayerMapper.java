@@ -65,6 +65,9 @@ public interface WebLayerMapper {
     @Mapping(target = "pointKef", ignore = true)
     @Mapping(target = "point", ignore = true)
     @Mapping(target = "full", ignore = true)
+    @Mapping(target = "contents", ignore = true)
+    @Mapping(target = "createdOn", ignore = true)
+    @Mapping(target = "updatedOn", ignore = true)
     ContainerModel toContainerModel(ContainerRequestDto requestDto);
 
     /**

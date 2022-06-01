@@ -17,54 +17,68 @@
             <div class="col-lg-12 mb-5 mb-lg-0 position-relative">
                 <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
                 <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
-                <div class="card bg-glass">
-                    <div class="card-body px-4 py-5 px-md-5">
-                        <div class="my-3 p-3 bg-glass rounded box-shadow">
+<!--                /////-->
+
+
+                <div class="album py-5 bg-glass">
+                    <div class="container">
+                        <div class="d-flex flex-row-reverse">
                             <form th:action="@{/app/home}" class="d-flex flex-row">
                                 <button type="submit" class="btn  btn-outline-success to-spin">Back</button>
                             </form>
+                        </div>
 
-                            <h6 class="border-bottom border-gray pb-2 mb-0">My containers</h6>
+                        <h6 class="border-bottom border-gray pb-2 mb-0">My containers</h6>
 
-                            <div th:each="container : ${containers}">
-                                <div class="media text-muted pt-3">
-                                    <img  th:src="@{/images/app-icon.png}" alt="" class="mr-2 rounded">
-                                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                                        <div class="d-flex justify-content-between align-items-center w-100">
-                                            <strong class="text-gray-dark"  th:text="${container.name}" > Full Name </strong>
-                                        </div>
-                                        <span class="d-block d-flex flex-row"> <span th:text="${container.address}" >Container name</span></span>
-                                        <div class="d-flex justify-content-end">
-                                            <form th:action="@{/app/map/marker/show}">
-                                                <input type="hidden" name="id" th:value="${container.id}">
-                                                <button type="submit" class="btn btn-success to-spin">More info</button>
-                                            </form>
+                        <div class="row">
+                                <div th:each="container : ${containers}" class="col-md-4">
+                                    <div class="card mb-4 box-shadow">
+                                        <img class="card-img-top" th:src="@{/images/being-green.jpeg}" alt="Card image cap">
+                                        <div class="card-body">
+                                            <p class="card-text"><span th:text="${container.name}"></span>. <span th:text="${container.address}"></span></p>
+                                            <p th:text="${container.description}"></p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group btn-group-toggle">
+                                                    <form th:action="@{/app/map/marker/show}">
+                                                        <input type="hidden" name="id" th:value="${container.id}">
+                                                        <button type="submit" class="btn btn-sm btn-success to-spin">More info</button>
+                                                    </form>
 
-                                            <form th:if ="${container.isBeSeen}" th:action="@{/app/map/container/show/disable}" method="post">
-                                                <input type="hidden" name="id" th:value="${container.id}">
-                                                <input type="hidden" name="name" th:value="${container.name}">
-                                                <button type="submit" class="btn btn-outline-danger to-spin">Disable
-                                                </button>
-                                            </form>
+                                                    <form th:action="@{/app/pointing/show}" >
+                                                        <input type="hidden" name="id" th:value="${container.id}">
+                                                        <input type="hidden" name="name" th:value="${container.name}">
+                                                        <button type="submit" class="btn btn-sm btn-success to-spin">Pointing
+                                                        </button>
+                                                    </form>
 
-                                            <form th:if ="${!container.isBeSeen}" th:action="@{/app/map/container/show/enable} " method="post">
-                                                <input type="hidden" name="id" th:value="${container.id}">
-                                                <input type="hidden" name="name" th:value="${container.name}">
-                                                <button type="submit" class="btn btn-outline-success to-spin">Enable
-                                                </button>
-                                            </form>
+                                                    <form th:if ="${container.isBeSeen}" th:action="@{/app/map/container/show/disable}" method="post">
+                                                        <input type="hidden" name="id" th:value="${container.id}">
+                                                        <input type="hidden" name="name" th:value="${container.name}">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger to-spin">Disable
+                                                        </button>
+                                                    </form>
+
+                                                    <form th:if ="${!container.isBeSeen}" th:action="@{/app/map/container/show/enable} " method="post">
+                                                        <input type="hidden" name="id" th:value="${container.id}">
+                                                        <input type="hidden" name="name" th:value="${container.name}">
+                                                        <button type="submit" class="btn btn-sm btn-outline-success to-spin">Enable
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <small class="text-muted" th:text="${container.getCreatedOn()}">9 mins</small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <small class="d-block text-right mt-3">
-                                <form th:action="@{/app/map/marker/choice}">
-                                    <button type="submit" class="btn btn-success to-spin">Add new one</button>
-                                </form>
-                            </small>
                         </div>
+
+
                     </div>
+                        <small class="d-flex justify-content-center mt-3">
+                            <form th:action="@{/app/map/marker/choice}">
+                                <button type="submit" class="btn btn-success to-spin">Add new one</button>
+                            </form>
+                        </small>
                 </div>
             </div>
         </div>

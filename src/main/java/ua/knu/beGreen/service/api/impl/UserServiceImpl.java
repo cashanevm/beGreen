@@ -23,6 +23,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -46,8 +47,10 @@ public class UserServiceImpl implements UserDetailsService {
         HashSet<ContainerEntity> containerEntities = new HashSet<>();
 
         userRepository.save(UserEntity.builder()
-                        .active(true).activationCode("f").containers(containerEntities)
-                .currency(0).id("id").email("email").password("1111").username("1111").roles(roles)
+                .active(true).activationCode("f").containers(containerEntities)
+                .currency(0).id("id").email("email")
+                .password(new BCryptPasswordEncoder(8).encode("1111"))
+                .username("1111").roles(roles)
                 .build());
     }
 
@@ -63,6 +66,11 @@ public class UserServiceImpl implements UserDetailsService {
     public Optional<UserModel> findByUsername(String userName) {
         return userRepository.findByUsername(userName).map(ServiceLayerMapper.I::toUserModel);
     }
+
+    public Optional<UserModel> findById(String id) {
+        return userRepository.findById(id).map(ServiceLayerMapper.I::toUserModel);
+    }
+
     public Optional<UserModel> findByActivationCode(String activationCode) {
         return userRepository.findByActivationCode(activationCode).map(ServiceLayerMapper.I::toUserModel);
     }

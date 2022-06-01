@@ -68,7 +68,10 @@ public class ContainerEntity {
     @Column(nullable = false)
     private Integer size;
 
-    @Column(nullable = false, columnDefinition = "double default 0.0")
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int contents;
+
+    @Column(nullable = false, columnDefinition = "FLOAT(8) default 0.0")
     private double pointKef;
 
     @Column(nullable = false, columnDefinition = "boolean default false")
