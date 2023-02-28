@@ -1,6 +1,8 @@
-package ua.knu.beGreen.service.impl;
+package ua.knu.beGreen.service.api.impl;
 
+import ua.knu.beGreen.persistence.entity.ContainerEntity;
 import ua.knu.beGreen.persistence.entity.Role;
+import ua.knu.beGreen.persistence.entity.UserEntity;
 import ua.knu.beGreen.persistence.repository.UserRepository;
 import ua.knu.beGreen.service.api.MailingService;
 import ua.knu.beGreen.service.mapper.ServiceLayerMapper;
@@ -8,6 +10,7 @@ import ua.knu.beGreen.service.model.ContainerModel;
 import ua.knu.beGreen.service.model.UserModel;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,9 +18,12 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -33,6 +39,21 @@ public class UserServiceImpl implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @PostConstruct
+    private void addTestUser() {
+//        HashSet<Role> roles = new HashSet<>();
+//        roles.add(Role.COMPANY);
+//
+//        HashSet<ContainerEntity> containerEntities = new HashSet<>();
+//
+//        userRepository.save(UserEntity.builder()
+//                .active(true).activationCode("f").containers(containerEntities)
+//                .currency(0).id("id").email("email")
+//                .password(new BCryptPasswordEncoder(8).encode("1111"))
+//                .username("1111").roles(roles)
+//                .build());
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.findByUsername(username).orElse(null);
@@ -45,6 +66,11 @@ public class UserServiceImpl implements UserDetailsService {
     public Optional<UserModel> findByUsername(String userName) {
         return userRepository.findByUsername(userName).map(ServiceLayerMapper.I::toUserModel);
     }
+
+    public Optional<UserModel> findById(String id) {
+        return userRepository.findById(id).map(ServiceLayerMapper.I::toUserModel);
+    }
+
     public Optional<UserModel> findByActivationCode(String activationCode) {
         return userRepository.findByActivationCode(activationCode).map(ServiceLayerMapper.I::toUserModel);
     }
@@ -125,7 +151,6 @@ public class UserServiceImpl implements UserDetailsService {
         }
     }
 //need to remove
-
 private void sendMessage(UserModel userModel) {
     if (!StringUtils.isEmpty(userModel.getEmail())) {
         String message = String.format(

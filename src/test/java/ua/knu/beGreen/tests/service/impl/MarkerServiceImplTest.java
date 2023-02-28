@@ -4,7 +4,7 @@ import ua.knu.beGreen.persistence.entity.MarkerEntity;
 import ua.knu.beGreen.persistence.repository.MarkerRepository;
 import ua.knu.beGreen.service.api.ContainerService;
 import ua.knu.beGreen.service.api.MarkerService;
-import ua.knu.beGreen.service.impl.MarkerServiceImpl;
+import ua.knu.beGreen.service.api.impl.MarkerServiceImpl;
 import ua.knu.beGreen.service.model.MarkerModel;
 
 import java.util.ArrayList;

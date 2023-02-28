@@ -17,8 +17,10 @@ import static ua.knu.beGreen.service.constants.ApplicationConstants.MVC_APPLICAT
 public class HomeController {
     @GetMapping("/home")
     public String greeting(Model model, @Parameter(hidden = true) @AuthenticationPrincipal UserModel userModel) {
-        System.out.println(userModel);
         model.addAttribute("username", userModel.getUsername());
+        model.addAttribute("userCurrency", userModel.getCurrency() == null ? 0 : userModel.getCurrency());
+        model.addAttribute("userPoints", userModel.getPoint() == null ? 0 : userModel.getPoint());
+
         return "home";
     }
 }

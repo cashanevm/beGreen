@@ -65,6 +65,19 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label for="inputEmail4">Size</label>
+
+                                <input th:classappend="${sizeError} ? 'is-invalid'"
+                                       th:attrappend="value=${container_request_dto != null}?${container_request_dto.getSize()}"
+                                       type="text" name="size" class="form-control" id="inputEmrail4" placeholder="Size">
+
+                                <div th:if="nameError" th:text="${sizeError}"
+                                     id="validationSrerverUsernameFeedback" class="invalid-feedback">
+                                    error
+                                </div>
+                            </div>
+
                             <div class="form-group" sec:authorize="hasAuthority('COMPANY')">
                                 <div class="form-check">
                                     <input name="isBeSeen"

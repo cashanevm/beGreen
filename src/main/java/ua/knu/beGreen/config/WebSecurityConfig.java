@@ -1,6 +1,6 @@
 package ua.knu.beGreen.config;
 
-import ua.knu.beGreen.service.impl.UserServiceImpl;
+import ua.knu.beGreen.service.api.impl.UserServiceImpl;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

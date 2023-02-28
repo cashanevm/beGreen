@@ -1,4 +1,4 @@
-package ua.knu.beGreen.service.impl;
+package ua.knu.beGreen.service.api.impl;
 
 import ua.knu.beGreen.persistence.repository.MarkerRepository;
 import ua.knu.beGreen.service.api.ContainerService;

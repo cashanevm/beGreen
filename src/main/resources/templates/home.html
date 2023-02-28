@@ -16,11 +16,20 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal">Be Green</h5>
     <nav class="my-2 my-md-0 mr-md-3">
-        <!--        <a class="p-2 text-dark" href="/#">Features</a>-->
+        <p th:if="${message}" class="p-2 text-dark" th:text="${message}">  </p>
         <!--        <a class="p-2 text-dark" href="/#">Enterprise</a>-->
         <!--        <a class="p-2 text-dark" href="/#">Support</a>-->
         <!--        <a class="p-2 text-dark" href="/#">Pricing</a>-->
     </nav>
+
+    <nav>
+        <a class="p-2 text-dark" th:href="@{/app/home}"><span th:text="${userPoints}"></span> Points</a>
+    </nav>
+
+    <nav sec:authorize="hasAuthority('COMPANY')">
+        <a class="p-2 text-dark" th:href="@{/app/currency/add}"><span th:text="${userCurrency}"></span>$</a>
+    </nav>
+
     <form th:action="@{/logout}" method="post">
         <!-- Submit button -->
         <button type="submit" class="btn btn-outline-success to-spin">

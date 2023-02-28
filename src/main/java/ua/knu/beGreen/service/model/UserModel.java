@@ -32,6 +32,10 @@ public class UserModel implements UserDetails {
 
     private Set<Role> roles;
 
+    private Integer point;
+
+    private Integer currency;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

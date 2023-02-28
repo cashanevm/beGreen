@@ -2,7 +2,7 @@ package ua.knu.beGreen.web.controller.mvc;
 
 import ua.knu.beGreen.persistence.entity.Role;
 import ua.knu.beGreen.service.api.MailingService;
-import ua.knu.beGreen.service.impl.UserServiceImpl;
+import ua.knu.beGreen.service.api.impl.UserServiceImpl;
 import ua.knu.beGreen.service.model.UserModel;
 import ua.knu.beGreen.web.dto.request.UserRequestDto;
 import ua.knu.beGreen.web.mapper.WebLayerMapper;
