@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MailingServiceImpl implements MailingService {
     private final JavaMailSender mailSender;
 
@@ -28,7 +30,11 @@ public class MailingServiceImpl implements MailingService {
         mailMessage.setSubject(subject);
         mailMessage.setText(message);
 
-        mailSender.send(mailMessage);
+        try {
+            mailSender.send(mailMessage);
+        } catch (Exception e) {
+            log.error("Failed to send email. " + e.getMessage());
+        }
     }
     @Override
     public void sendMessage(UserModel userModel, String domain) {
